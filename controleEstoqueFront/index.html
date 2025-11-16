@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema completo de controle de estoque com interface moderna e responsiva">
+    <meta name="keywords" content="estoque, inventário, produtos, categorias, movimentação, relatórios">
+    <meta name="author" content="Sistema de Estoque Masterpiece">
+    <title>Controlador de Estoque - Sistema de Controle de Estoque</title>
+    
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+    
+    <meta property="og:title" content="StockMaster Pro - Sistema de Estoque">
+    <meta property="og:description" content="Gerencie seu estoque de forma profissional e eficiente">
+    <meta property="og:type" content="website">
+    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='black'/><text x='50' y='60' font-family='Arial' font-size='40' text-anchor='middle' fill='white'>S</text></svg>">
+    <meta name="theme-color" content="#000000">
+    
+    <link rel="stylesheet" href="styles.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        .header-title {
+            color: #000000 !important;
+            background: linear-gradient(135deg, #000000, #2a2a2a) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            text-shadow: none !important;
+            animation: none !important;
+            font-family: 'Poppins', sans-serif !important;
+            font-weight: 900 !important;
+            letter-spacing: -1px !important;
+        }
+
+        .title-icon {
+            display: none !important;
+        }
+
+        .site-header {
+            background: var(--premium-gradient) !important;
+            position: relative !important;
+        }
+
+        .header-title,
+        .header-title * {
+            animation: none !important;
+            transition: none !important;
+        }
+
+        .theme-toggle {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            transform: scale(1) !important;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(0.9) !important;
+            rotate: 0deg !important;
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.85) !important;
+        }
+
+        .theme-toggle:hover {
+            rotate: 0deg !important;
+        }
+    </style>
+</head>
+<body class="theme-transition">
+    <div class="bg-decoration bg-decoration-1"></div>
+    <div class="bg-decoration bg-decoration-2"></div>
+    <div class="cinematic-sparks"></div>
+    <div class="cinematic-overlay"></div>
+    
+    <main class="container" role="main">
+        <header class="site-header" role="banner">
+            <div class="header-content">
+                <h1 class="header-title">
+                    Controlador de Estoque
+                </h1>
+                <p class="header-subtitle">Sistema Avançado de Controle de Estoque</p>
+                <div class="header-stats" aria-live="polite">
+                    <span class="stat-item">
+                        <strong class="stat-number">100%</strong>
+                        <span class="stat-label">Profissional</span>
+                    </span>
+                    <span class="stat-item">
+                        <strong class="stat-number">✓</strong>
+                        <span class="stat-label">Confiável</span>
+                    </span>
+                    <span class="stat-item">
+                        <strong class="stat-number">⚡</strong>
+                        <span class="stat-label">Rápido</span>
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <nav class="navigation-system" role="navigation" aria-label="Navegação principal">
+            <div class="nav-tabs" role="tablist">
+                <button class="nav-tab active" 
+                        role="tab" 
+                        aria-selected="true" 
+                        aria-controls="login-tab"
+                        id="tab-login"
+                        onclick="abrirTab('login-tab')">
+                    <span class="tab-icon" aria-hidden="true">🔐</span>
+                    <span class="tab-text">Acesso ao Sistema</span>
+                </button>
+                
+                <button class="nav-tab" 
+                        role="tab" 
+                        aria-selected="false" 
+                        aria-controls="produtos-tab"
+                        id="tab-produtos"
+                        onclick="abrirTab('produtos-tab')"
+                        disabled>
+                    <span class="tab-icon" aria-hidden="true">📦</span>
+                    <span class="tab-text">Gestão de Produtos</span>
+                </button>
+                
+                <button class="nav-tab" 
+                        role="tab" 
+                        aria-selected="false" 
+                        aria-controls="categorias-tab"
+                        id="tab-categorias"
+                        onclick="abrirTab('categorias-tab')"
+                        disabled>
+                    <span class="tab-icon" aria-hidden="true">📁</span>
+                    <span class="tab-text">Categorias</span>
+                </button>
+                
+                <button class="nav-tab" 
+                        role="tab" 
+                        aria-selected="false" 
+                        aria-controls="movimentacao-tab"
+                        id="tab-movimentacao"
+                        onclick="abrirTab('movimentacao-tab')"
+                        disabled>
+                    <span class="tab-icon" aria-hidden="true">🔄</span>
+                    <span class="tab-text">Movimentações</span>
+                </button>
+                
+                <button class="nav-tab" 
+                        role="tab" 
+                        aria-selected="false" 
+                        aria-controls="relatorios-tab"
+                        id="tab-relatorios"
+                        onclick="abrirTab('relatorios-tab')"
+                        disabled>
+                    <span class="tab-icon" aria-hidden="true">📊</span>
+                    <span class="tab-text">Relatórios</span>
+                </button>
+            </div>
+        </nav>
+
+        <div class="tab-content-system">
+            <section class="tab-content active" 
+                     id="login-tab" 
+                     role="tabpanel" 
+                     aria-labelledby="tab-login"
+                     tabindex="0">
+                <header class="tab-header">
+                    <h2 class="tab-title">Acesso ao Sistema</h2>
+                    <p class="tab-description">Faça login ou crie sua conta para gerenciar seu estoque</p>
+                </header>
+
+                <div class="grid grid-2">
+                    <article class="card login-card featured" role="form" aria-labelledby="login-title">
+                        <header class="card-header">
+                            <h3 id="login-title" class="card-title">
+                                <span class="title-icon" aria-hidden="true">🚀</span>
+                                Acessar Sistema
+                            </h3>
+                            <p class="card-subtitle">Entre com suas credenciais</p>
+                        </header>
+                        
+                        <form class="login-form" onsubmit="event.preventDefault(); fazerLogin();">
+                            <div class="form-group">
+                                <label for="loginEmail" class="form-label">
+                                    <span class="label-icon" aria-hidden="true">📧</span>
+                                    Email
+                                </label>
+                                <div class="form-input-group">
+                                    <input type="email" 
+                                            id="loginEmail" 
+                                            class="form-input" 
+                                            placeholder="seu@email.com"
+                                            required
+                                            aria-required="true"
+                                            autocomplete="email">
+                                    <span class="form-input-icon" aria-hidden="true">@</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="loginSenha" class="form-label">
+                                    <span class="label-icon" aria-hidden="true">🔒</span>
+                                    Senha
+                                </label>
+                                <div class="form-input-group">
+                                    <input type="password" 
+                                            id="loginSenha" 
+                                            class="form-input" 
+                                            placeholder="Sua senha"
+                                            required
+                                            aria-required="true"
+                                            autocomplete="current-password">
+                                    <span class="form-input-icon" aria-hidden="true">***</span>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                    <span class="btn-icon" aria-hidden="true">⚡</span>
+                                    Entrar no Sistema
+                                </button>
+                            </div>
+                        </form>
+                    </article>
+
+                    <article class="card register-card" role="form" aria-labelledby="register-title">
+                        <header class="card-header">
+                            <h3 id="register-title" class="card-title">
+                                <span class="title-icon" aria-hidden="true">👤</span>
+                                Nova Conta
+                            </h3>
+                            <p class="card-subtitle">Crie sua conta gratuitamente</p>
+                        </header>
+                        
+                        <form class="register-form" onsubmit="event.preventDefault(); cadastrarUsuario();">
+                            <div class="form-group">
+                                <label for="cadNome" class="form-label">
+                                    <span class="label-icon" aria-hidden="true">👑</span>
+                                    Nome Completo
+                                </label>
+                                <input type="text" 
+                                        id="cadNome" 
+                                        class="form-input" 
+                                        placeholder="Seu nome completo"
+                                        required
+                                        aria-required="true"
+                                        autocomplete="name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cadEmail" class="form-label">
+                                    <span class="label-icon" aria-hidden="true">📧</span>
+                                    Email
+                                </label>
+                                <input type="email" 
+                                        id="cadEmail" 
+                                        class="form-input" 
+                                        placeholder="seu@email.com"
+                                        required
+                                        aria-required="true"
+                                        autocomplete="email">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cadSenha" class="form-label">
+                                    <span class="label-icon" aria-hidden="true">🔑</span>
+                                    Senha
+                                </label>
+                                <input type="password" 
+                                        id="cadSenha" 
+                                        class="form-input" 
+                                        placeholder="Crie uma senha forte"
+                                        required
+                                        aria-required="true"
+                                        autocomplete="new-password"
+                                        minlength="6">
+                                <small class="form-hint">Mínimo 6 caracteres</small>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-success btn-lg btn-block">
+                                    <span class="btn-icon" aria-hidden="true">✨</span>
+                                    Criar Conta
+                                </button>
+                            </div>
+                        </form>
+                    </article>
+                </div>
+
+                <div id="loginResultado" class="results-area" aria-live="polite" aria-atomic="true"></div>
+            </section>
+
+            <section class="tab-content" 
+                     id="produtos-tab" 
+                     role="tabpanel" 
+                     aria-labelledby="tab-produtos"
+                     tabindex="0"
+                     style="display: none;">
+                <header class="tab-header">
+                    <h2 class="tab-title">Gestão de Produtos</h2>
+                    <p class="tab-description">Cadastre e gerencie todos os produtos do seu estoque</p>
+                </header>
+
+                <div class="grid grid-2">
+                    <article class="card product-form-card" role="form" aria-labelledby="product-form-title">
+                        <header class="card-header">
+                            <h3 id="product-form-title" class="card-title">
+                                <span class="title-icon" aria-hidden="true">➕</span>
+                                Novo Produto
+                            </h3>
+                            <p class="card-subtitle">Adicione um produto ao catálogo</p>
+                        </header>
+                        
+                        <form class="product-form" onsubmit="event.preventDefault(); cadastrarProduto();">
+                            <div class="form-group">
+                                <label for="prodNome" class="form-label">Nome do Produto</label>
+                                <input type="text" 
+                                        id="prodNome" 
+                                        class="form-input" 
+                                        placeholder="Ex: Notebook Dell Inspiron"
+                                        required
+                                        aria-required="true">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="prodCodigo" class="form-label">Código SKU</label>
+                                <input type="text" 
+                                        id="prodCodigo" 
+                                        class="form-input" 
+                                        placeholder="Ex: NTB-DLL-001"
+                                        required
+                                        aria-required="true">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="prodDescricao" class="form-label">Descrição</label>
+                                <textarea id="prodDescricao" 
+                                             class="form-input form-textarea" 
+                                             placeholder="Descreva o produto..."
+                                             rows="4"></textarea>
+                            </div>
+
+                            <div class="form-row grid grid-2">
+                                <div class="form-group">
+                                    <label for="prodValor" class="form-label">Valor Unitário (R$)</label>
+                                    <input type="number" 
+                                            id="prodValor" 
+                                            class="form-input" 
+                                            step="0.01" 
+                                            min="0"
+                                            placeholder="0.00">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="prodEstoqueMin" class="form-label">Estoque Mínimo</label>
+                                    <input type="number" 
+                                            id="prodEstoqueMin" 
+                                            class="form-input" 
+                                            min="0" 
+                                            placeholder="0">
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary btn-block">
+                                    <span class="btn-icon" aria-hidden="true">💾</span>
+                                    Cadastrar Produto
+                                </button>
+                            </div>
+                        </form>
+                    </article>
+
+                    <article class="card product-list-card" aria-labelledby="product-list-title">
+                        <header class="card-header">
+                            <h3 id="product-list-title" class="card-title">
+                                <span class="title-icon" aria-hidden="true">📋</span>
+                                Catálogo de Produtos
+                            </h3>
+                            <div class="card-actions">
+                                <button class="btn btn-sm" onclick="carregarProdutos()">
+                                    <span class="btn-icon" aria-hidden="true">🔄</span>
+                                    Atualizar
+                                </button>
+                            </div>
+                        </header>
+                        
+                        <div class="card-content">
+                            <div id="listaProdutos" class="data-container" aria-live="polite">
+                                <div class="empty-state">
+                                    <span class="empty-icon" aria-hidden="true">📦</span>
+                                    <p>Nenhum produto cadastrado</p>
+                                    <small>Use o formulário ao lado para adicionar produtos</small>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="tab-content" 
+                     id="categorias-tab" 
+                     role="tabpanel" 
+                     aria-labelledby="tab-categorias"
+                     tabindex="0"
+                     style="display: none;">
+                <header class="tab-header">
+                    <h2 class="tab-title">Gestão de Categorias</h2>
+                    <p class="tab-description">Organize seus produtos em categorias</p>
+                </header>
+
+                <div class="grid grid-2">
+                    <article class="card category-form-card" role="form" aria-labelledby="category-form-title">
+                        <header class="card-header">
+                            <h3 id="category-form-title" class="card-title">
+                                <span class="title-icon" aria-hidden="true">🏷️</span>
+                                Nova Categoria
+                            </h3>
+                            <p class="card-subtitle">Crie uma categoria para organizar produtos</p>
+                        </header>
+                        
+                        <form class="category-form" onsubmit="event.preventDefault(); cadastrarCategoria();">
+                            <div class="form-group">
+                                <label for="catNome" class="form-label">Nome da Categoria</label>
+                                <input type="text" 
+                                        id="catNome" 
+                                        class="form-input" 
+                                        placeholder="Ex: Eletrônicos, Roupas, etc."
+                                        required
+                                        aria-required="true">
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary btn-block">
+                                    <span class="btn-icon" aria-hidden="true">➕</span>
+                                    Criar Categoria
+                                </button>
+                            </div>
+                        </form>
+                    </article>
+
+                    <article class="card category-list-card" aria-labelledby="category-list-title">
+                        <header class="card-header">
+                            <h3 id="category-list-title" class="card-title">
+                                <span class="title-icon" aria-hidden="true">📑</span>
+                                Categorias Existentes
+                            </h3>
+                            <div class="card-actions">
+                                <button class="btn btn-sm" onclick="carregarCategorias()">
+                                    <span class="btn-icon" aria-hidden="true">🔄</span>
+                                    Atualizar
+                                </button>
+                            </div>
+                        </header>
+                        
+                        <div class="card-content">
+                            <div id="listaCategorias" class="data-container" aria-live="polite">
+                                <div class="empty-state">
+                                    <span class="empty-icon" aria-hidden="true">📁</span>
+                                    <p>Nenhuma categoria criada</p>
+                                    <small>Crie categorias para organizar seus produtos</small>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="tab-content" 
+                     id="movimentacao-tab" 
+                     role="tabpanel" 
+                     aria-labelledby="tab-movimentacao"
+                     tabindex="0"
+                     style="display: none;">
+                <header class="tab-header">
+                    <h2 class="tab-title">Movimentação de Estoque</h2>
+                    <p class="tab-description">Controle entradas e saídas do seu estoque</p>
+                </header>
+
+                <div class="grid grid-2">
+                    <article class="card entry-card" role="form" aria-labelledby="entry-title">
+                        <header class="card-header">
+                            <h3 id="entry-title" class="card-title">
+                                <span class="title-icon" aria-hidden="true">📥</span>
+                                Entrada no Estoque
+                            </h3>
+                            <p class="card-subtitle">Registre a entrada de produtos</p>
+                        </header>
+                        
+                        <form class="entry-form" onsubmit="event.preventDefault(); registrarEntrada();">
+                            <div class="form-group">
+                                <label for="entradaProdutoId" class="form-label">ID do Produto</label>
+                                <input type="number" 
+                                        id="entradaProdutoId" 
+                                        class="form-input" 
+                                        placeholder="Ex: 123"
+                                        required
+                                        aria-required="true"
+                                        min="1">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="entradaQuantidade" class="form-label">Quantidade</label>
+                                <input type="number" 
+                                        id="entradaQuantidade" 
+                                        class="form-input" 
+                                        placeholder="Ex: 50"
+                                        required
+                                        aria-required="true"
+                                        min="1">
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-success btn-block">
+                                    <span class="btn-icon" aria-hidden="true">✅</span>
+                                    Registrar Entrada
+                                </button>
+                            </div>
+                        </form>
+                    </article>
+
+                    <article class="card exit-card" role="form" aria-labelledby="exit-title">
+                        <header class="card-header">
+                            <h3 id="exit-title" class="card-title">
+                                <span class="title-icon" aria-hidden="true">📤</span>
+                                Saída do Estoque
+                            </h3>
+                            <p class="card-subtitle">Registre a saída de produtos</p>
+                        </header>
+                        
+                        <form class="exit-form" onsubmit="event.preventDefault(); registrarSaida();">
+                            <div class="form-group">
+                                <label for="saidaProdutoId" class="form-label">ID do Produto</label>
+                                <input type="number" 
+                                        id="saidaProdutoId" 
+                                        class="form-input" 
+                                        placeholder="Ex: 123"
+                                        required
+                                        aria-required="true"
+                                        min="1">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="saidaQuantidade" class="form-label">Quantidade</label>
+                                <input type="number" 
+                                        id="saidaQuantidade" 
+                                        class="form-input" 
+                                        placeholder="Ex: 10"
+                                        required
+                                        aria-required="true"
+                                        min="1">
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-danger btn-block">
+                                    <span class="btn-icon" aria-hidden="true">⚠️</span>
+                                    Registrar Saída
+                                </button>
+                            </div>
+                        </form>
+                    </article>
+                </div>
+
+                <div id="movimentacaoResultado" class="results-area" aria-live="polite" aria-atomic="true"></div>
+            </section>
+
+            <section class="tab-content" 
+                     id="relatorios-tab" 
+                     role="tabpanel" 
+                     aria-labelledby="tab-relatorios"
+                     tabindex="0"
+                     style="display: none;">
+                <header class="tab-header">
+                    <h2 class="tab-title">Relatórios e Analytics</h2>
+                    <p class="tab-description">Acompanhe métricas e insights do seu estoque</p>
+                </header>
+
+                <div class="grid grid-3">
+                    <article class="card report-card" aria-labelledby="stock-report-title">
+                        <header class="card-header">
+                            <h3 id="stock-report-title" class="card-title">
+                                <span class="title-icon" aria-hidden="true">📦</span>
+                                Estoque Atual
+                            </h3>
+                        </header>
+                        
+                        <div class="card-content">
+                            <p class="card-description">Visão geral completa do estoque atual</p>
+                            <div class="card-actions">
+                                <button class="btn btn-primary btn-block" onclick="gerarRelatorioEstoque()">
+                                    <span class="btn-icon" aria-hidden="true">📈</span>
+                                    Gerar Relatório
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div id="relatorioEstoque" class="report-results" aria-live="polite"></div>
+                    </article>
+
+                    <article class="card report-card" aria-labelledby="logs-report-title">
+                        <header class="card-header">
+                            <h3 id="logs-report-title" class="card-title">
+                                <span class="title-icon" aria-hidden="true">📋</span>
+                                Logs do Sistema
+                            </h3>
+                        </header>
+                        
+                        <div class="card-content">
+                            <p class="card-description">Histórico completo de atividades</p>
+                            <div class="card-actions">
+                                <button class="btn btn-primary btn-block" onclick="gerarRelatorioLogs()">
+                                    <span class="btn-icon" aria-hidden="true">🕒</span>
+                                    Ver Logs
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div id="relatorioLogs" class="report-results" aria-live="polite"></div>
+                    </article>
+
+                    <article class="card report-card" aria-labelledby="movements-report-title">
+                        <header class="card-header">
+                            <h3 id="movements-report-title" class="card-title">
+                                <span class="title-icon" aria-hidden="true">🔄</span>
+                                Movimentações
+                            </h3>
+                        </header>
+                        
+                        <div class="card-content">
+                            <p class="card-description">Entradas e saídas detalhadas</p>
+                            <div class="card-actions">
+                                <button class="btn btn-primary btn-block" onclick="gerarRelatorioMovimentacoes()">
+                                    <span class="btn-icon" aria-hidden="true">📊</span>
+                                    Ver Movimentações
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div id="relatorioMovimentacoes" class="report-results" aria-live="polite"></div>
+                    </article>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4 class="footer-title">Controle de Estoque</h4>
+                <p class="footer-description">Sistema avançado de controle de estoque</p>
+            </div>
+            
+            <div class="footer-section">
+                <p class="footer-copyright">
+                    &copy; 2025 Estoque Pro. 
+                    <span class="footer-version">v1.0.0</span>
+                </p>
+            </div>
+            
+            <div class="footer-section">
+                <div class="footer-stats">
+                    <span class="footer-stat">
+                        <strong id="onlineUsers">1</strong> online
+                    </span>
+                    <span class="footer-stat">
+                        <strong id="totalProducts">0</strong> produtos
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<script src="script.js"></script>
+</body>
+</html>
